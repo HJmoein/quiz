@@ -154,7 +154,7 @@ async def question_timeout(chat_id, user_id, q_index, msg_id, context):
             chat_id=chat_id,
             text="⏰ زمان تمام شد سوال بعدی:"
         )
-        user_data[user_id]["q_index"] += 2
+        user_data[user_id]["q_index"] += 1
         await ask_question_dummy(chat_id, user_id, context)
 
 async def ask_question_dummy(chat_id, user_id, context):
@@ -183,13 +183,13 @@ async def answer_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_ans = int(query.data.replace("answer_", ""))
     await query.edit_message_reply_markup(reply_markup=None)
     if user_ans == correct_idx:
-        user_data[user_id]["score"] += 2
+        user_data[user_id]["score"] += 1
         await query.message.reply_text("✅ درست بود")
     else:
         ans_text = QUESTIONS[q_index]["options"][correct_idx]
         await query.message.reply_text(f"❌ اشتباه جواب صحیح: {ans_text}")
 
-    user_data[user_id]["q_index"] += 2
+    user_data[user_id]["q_index"] += 1
     await ask_question(query, context)
 
 def main():
