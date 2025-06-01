@@ -83,7 +83,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     }
     await update.message.reply_text(
         "به مسابقه اطلاعات عمومی سخت (چهارگزینه‌ای) خوش آمدید\n"
-        "هر سؤال ۱۰ ثانیه فرصت دارد.\n"
+        "هر سؤال ۳۰ ثانیه فرصت دارد.\n"
         "آیا آماده‌ای؟ (لطفاً فقط تایپ کن: بله، آره، نه، خیر)"
     )
 
