@@ -100,7 +100,7 @@ async def ready_message_handler(update: Update, context: ContextTypes.DEFAULT_TY
         await ask_question(update, context)
     elif text in ["نه", "خیر"]:
         user_data[user_id]["waiting_ready"] = False
-        await update.message.reply_text("باشه، هر وقت آماده بودی /start رو بزن!")
+        await update.message.reply_text("باشه، هر وقت آماده بودی /start رو بزن")
     else:
         await update.message.reply_text("لطفاً فقط یکی از این‌ها را تایپ کن: بله، آره، نه، خیر")
 
@@ -142,7 +142,7 @@ async def ask_question(update_or_query, context: ContextTypes.DEFAULT_TYPE):
         )
 
 async def question_timeout(chat_id, user_id, q_index, msg_id, context):
-    await asyncio.sleep(10)
+    await asyncio.sleep(30)
     if user_data[user_id]["q_index"] == q_index and not user_data[user_id]["answer_lock"]:
         user_data[user_id]["answer_lock"] = True
         await context.bot.edit_message_reply_markup(
@@ -152,9 +152,9 @@ async def question_timeout(chat_id, user_id, q_index, msg_id, context):
         )
         await context.bot.send_message(
             chat_id=chat_id,
-            text="⏰ زمان تمام شد! سوال بعدی:"
+            text="⏰ زمان تمام شد سوال بعدی:"
         )
-        user_data[user_id]["q_index"] += 1
+        user_data[user_id]["q_index"] += 2
         await ask_question_dummy(chat_id, user_id, context)
 
 async def ask_question_dummy(chat_id, user_id, context):
@@ -183,13 +183,13 @@ async def answer_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_ans = int(query.data.replace("answer_", ""))
     await query.edit_message_reply_markup(reply_markup=None)
     if user_ans == correct_idx:
-        user_data[user_id]["score"] += 1
+        user_data[user_id]["score"] += 2
         await query.message.reply_text("✅ درست بود")
     else:
         ans_text = QUESTIONS[q_index]["options"][correct_idx]
         await query.message.reply_text(f"❌ اشتباه جواب صحیح: {ans_text}")
 
-    user_data[user_id]["q_index"] += 1
+    user_data[user_id]["q_index"] += 2
     await ask_question(query, context)
 
 def main():
