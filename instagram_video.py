@@ -193,7 +193,7 @@ async def answer_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await ask_question(query, context)
 
 def main():
-    TOKEN = "8149868544:AAFENL50P59AXdRtMk1ZujoCw_xidJWAvzw"  # توکن ربات خودت را اینجا بذار
+    TOKEN = "8617853498:AAF4t2UHEhYCCBOS5ZUQhLJEtVGbz_jmM5k"  # توکن ربات خودت را اینجا بذار
     application = ApplicationBuilder().token(TOKEN).build()
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CallbackQueryHandler(answer_handler, pattern="^answer_"))
